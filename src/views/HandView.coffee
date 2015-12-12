@@ -5,11 +5,7 @@ class window.HandView extends Backbone.View
 
   initialize: ->
     @collection.on 'add remove change', => @render()
-    @collection.on 'end', => @end()
     @render()
-
-  end: -> 
-
 
   render: ->
     @$el.children().detach()
