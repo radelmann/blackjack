@@ -1,3 +1,11 @@
+body {
+  padding: 10px;
+}
+
+.container {
+  margin:10px;
+}
+
 .card {
   float: left;
   border: solid 1px black;

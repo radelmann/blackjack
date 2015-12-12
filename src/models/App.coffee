@@ -12,25 +12,25 @@ class window.App extends Backbone.Model
 
   playerBust: ->
     @gameEnd()
-    alert ('Busted, dealer wins, game over! Refresh page to play again.')
+    @trigger('alert', 'Busted, dealer wins, game over! Refresh page to play again.')
 
   dealerBust: ->
     @gameEnd()
-    alert('Dealer busted, player wins! Refresh page to play again.')
+    @trigger('alert', 'Dealer busted, player wins! Refresh page to play again.')
 
   decideWinner: -> 
     @gameEnd()
-    playerScore = @get('playerHand').currentScore
-    dealerScore = @get('dealerHand').currentScore
+    playerScore = @get('playerHand').scores()
+    dealerScore = @get('dealerHand').scores()
 
     if playerScore > dealerScore 
-      alert('Player wins! Refresh page to play again.')
+      @trigger('alert', 'Player wins! Refresh page to play again.')
 
     if playerScore == dealerScore 
-      alert('Tie! Refresh page to play again.')
+      @trigger('alert', 'Tie! Refresh page to play again.')
 
     if playerScore < dealerScore 
-      alert ('Dealer wins, game over! Refresh page to play again.')
+      @trigger('alert', 'Dealer wins, game over! Refresh page to play again.')
   
   gameEnd: ->
     $('body').find('.hit-button').prop("disabled",true)
