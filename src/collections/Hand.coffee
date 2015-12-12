@@ -7,6 +7,8 @@ class window.Hand extends Backbone.Collection
     @add(@deck.pop())
     @last()
 
+  currentScore:0
+
   stand: ->
     # only called for dealer
       # flip first card in collection
@@ -32,7 +34,9 @@ class window.Hand extends Backbone.Collection
     # The scores are an array of potential scores.
     # Usually, that array contains one element. That is the only score.
     # when there is an ace, it offers you two scores - the original score, and score + 10.
-    if (curscore[0] > 21)
+    @currentScore = curscore[0]  
+    
+    if (@currentScore > 21)
       @trigger('bust', @)
 
     curscore

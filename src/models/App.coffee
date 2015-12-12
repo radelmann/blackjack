@@ -6,22 +6,22 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
     @get('dealerHand').on('decide-winner', @decideWinner, @)
+    
     @get('playerHand').on('bust', @playerBust, @)
     @get('dealerHand').on('bust', @dealerBust, @)
 
   playerBust: ->
+    @gameEnd()
     alert ('Busted, dealer wins, game over! Refresh page to play again.')
-    $('body').find('.hit-button').prop("disabled",true)
-    $('body').find('.stand-button').prop("disabled",true)
 
   dealerBust: ->
+    @gameEnd()
     alert('Dealer busted, player wins! Refresh page to play again.')
-    $('body').find('.hit-button').prop("disabled",true)
-    $('body').find('.stand-button').prop("disabled",true)
 
   decideWinner: -> 
-    playerScore = @get('playerHand').scores()[0]
-    dealerScore = @get('dealerHand').scores()[0]
+    @gameEnd()
+    playerScore = @get('playerHand').currentScore
+    dealerScore = @get('dealerHand').currentScore
 
     if playerScore > dealerScore 
       alert('Player wins! Refresh page to play again.')
@@ -31,5 +31,7 @@ class window.App extends Backbone.Model
 
     if playerScore < dealerScore 
       alert ('Dealer wins, game over! Refresh page to play again.')
-      
-      
+  
+  gameEnd: ->
+    $('body').find('.hit-button').prop("disabled",true)
+    $('body').find('.stand-button').prop("disabled",true)
